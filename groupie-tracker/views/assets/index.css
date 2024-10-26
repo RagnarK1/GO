@@ -1,0 +1,79 @@
+.Header{
+    display: flex;
+    justify-content: center;
+    background-color: rgb(27, 27, 27);
+}
+#HeaderText{
+    color: orange;
+    font-size: 40px;
+}
+.body{
+    display: flex;
+    background-color: rgb(27, 27, 27);
+    height: fit-content;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+}
+
+.footer {
+    display: flex;
+    background-color: rgb(27, 27, 27);
+    height: 100px;
+}
+
+.bandbox{
+    display: flex;
+    height: 320px;
+    width: 260px;
+    background-color: rgb(167, 43, 43);
+    border-radius: 10px;
+    border-width: 5px;
+    border-color: rgb(203, 55, 1);
+    border-style: double;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden; 
+    padding-top: 5px;
+    transform-origin: 5px left;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+
+.bandbox:hover{
+    transition-duration: 250ms;
+    background-color: rgb(204, 52, 52);
+    cursor: pointer;
+}
+.image{
+    display: flex;
+    height: auto;
+    border-radius: 5px;
+    background-color: aliceblue;
+    border-style: inherit;
+    border-color: rgb(203, 55, 1);
+    border-width: 5px;
+    margin-left: 5px;
+}
+.bandName{
+    margin:auto;
+    text-align: -webkit-center;
+}
+.nameDiv{
+    display: flex;
+    height: 70px;
+    width: 250px;
+}
+.check{
+    opacity: 0;
+    height: 0;
+    width: 0;
+}
+.label{
+    width: fit-content;
+    margin: 1.5%;
+}
+.formstyle{
+    margin: 1.5%;
+}

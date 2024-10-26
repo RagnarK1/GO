@@ -1,0 +1,261 @@
+<html>
+<link rel="stylesheet" type="text/css" href="/common/css/forum.css">
+
+<head>
+    <title>Forum: My page</title>
+    <script src="/common/js/forum.js"></script>
+    <link rel="icon" type="image/x-icon" href="./common/css/img/icon.ico">
+</head>
+
+<body>
+    <div class="background"></div>
+    <div class="frozenscreen hidden" id="NewTopic">
+        <form action="/uitopic" method="post" enctype="multipart/form-data">
+            <div class='close' onclick="document.getElementById('NewTopic').classList.add('hidden')"></div>
+            <label for="TopicTitle">Title:</label>
+            <textarea id="TopicTitle" name="TopicTitle" required></textarea>
+            <label for="TopicText">Description:</label>
+            <textarea id="TopicText" name="TopicText" required></textarea>
+            <label for="TopicCategory">Topic categories (multiselect "ctrl"):</label>
+            <select id="TopicCategory" name="TopicCategory" multiple>
+                {{range .Categories}}
+                <option value="{{.}}">{{.}}</option>
+                {{end}}
+            </select>
+            <input id="TopicId" name="TopicId" type="hidden">
+            <input id="TopicType" name="TopicType" type="hidden" value="Topic">
+            <label for="uploadImg" id="imgLabel">Upload image (png, jpeg, gif)</label>
+            <input type="file" name="uploadImg" id="uploadImg" onchange="validateFile()" class="hidden">
+            <input type="button" value="Select image" onclick="document.getElementById('uploadImg').click()">
+            <div id="uploadImgName" class="small">No image selected</div>
+            <div id="currentImg" class="small">
+                <label for="imgCheckbox" id="imgCheckboxLabel">Remove current image</label>
+                <input type="checkbox" id="imgCheckbox" name="removeImg">
+            </div>
+            <div id="fileErrorMsg" class="small"></div>
+            <input type="submit" value="Submit">
+            <div class="small">NB! Moderator needs to confirm the topic before others can see it!</div>
+            <div class="small">Press ESC to close this form!</div>
+        </form>
+    </div>
+
+    <div class="frozenscreen hidden" id="NewSubTopic">
+        <form action="/uitopic" method="post">
+            <div class='close' onclick="document.getElementById('NewSubTopic').classList.add('hidden')"></div>
+            <label for="ContentText">Leave your comment:</label>
+            <textarea id="ContentText" name="TopicText" required></textarea>
+            <input id="ContentId" name="TopicId" type="hidden">
+            <input id="ContentMainId" name="MainId" type="hidden" value="">
+            <input id="ContentType" name="TopicType" type="hidden" value="Sub">
+            <input type="submit" value="Submit">
+            <div class="small">Press ESC to close this form!</div>
+        </form>
+    </div>
+
+
+
+
+
+
+
+
+    <div class="page-content">
+        <div class="menu-bar">
+            <div>Hello {{.Session.Username}}! You have {{.Session.UserType}} rights.
+                <a href="/"><input type="button" value="Back to topics"></a>
+                <a href="/signout"><input type="submit" value="Log out"></a>
+            </div>
+        </div>
+
+        {{ $rights := .Rights }}
+        {{ $usertypes := .UserTypes }}
+
+        {{if or (eq .Session.UserType "ADMIN")}}
+        <div class="container">
+            <div>Change user type</div>
+            <table>
+                {{range $right := $rights}}
+                <tr class="topic-group">
+                    <td>
+                        <div>User:</div>
+                        <div>{{$right.UserName}}</div>
+                    </td>
+                    <td>
+                        <form method="post" action="/usertype">
+                            <input type="hidden" name="user" value="{{$right.UserName}}">
+                            <select name="type">
+                                {{range $usertype := $usertypes}}
+                                <option {{if eq . $right.UserType}} selected {{end}}>{{.}}</option>
+                                {{end}}
+                            </select>
+                            <input type="submit" value="Change rights">
+                        </form>
+                    </td>
+                </tr>
+                {{end}}
+            </table>
+        </div>
+        {{end}}
+        {{if or (eq .Session.UserType "ADMIN") (eq .Session.UserType "MODERATOR")}}
+        <div class="container">
+            <div>Pending topics for approval</div>
+            <table>
+                {{range .Pending}}
+                <tr main="{{.TopicID}}" class="topic-group" title="Author: {{.UserName}}">
+                    <td>
+                        <div>Title: {{.TopicName}} </div>
+                        <div>Content: {{.TopicText}}</div>
+                        <div>Categories: {{.Categories}}</div>
+                        {{if eq .TopicImg "false"}}
+                        {{else}}
+                        <img src="common/uploaded_images/{{.TopicImg}}" alt="{{.TopicImg}}">
+                        {{end}}
+                    </td>
+                    <td>
+                        <div>Created: {{.CreationDate}} by {{.UserName}}</div>
+                        <div>Confirm posts to forum:</div>
+                        <form method="post" action="/poststatus">
+                            <input type="hidden" name="id" value="{{.TopicID}}">
+                            <div class="radio">
+                                <input type="radio" id="a{{.TopicID}}" name="activate{{.TopicID}}" value="ACTIVE"
+                                    onclick="document.getElementById('area{{.TopicID}}').removeAttribute('required')"
+                                    required>
+                                <label for="a{{.TopicID}}" title="Allow topic into forum">
+                                    Allow
+                                </label>
+                                <input type="radio" id="d{{.TopicID}}" name="activate{{.TopicID}}" value="DECLINE"
+                                    onclick="document.getElementById('area{{.TopicID}}').setAttribute('required', 'required')">
+                                <label for="d{{.TopicID}}" title="Decline topic from forum">
+                                    Decline
+                                </label>
+                                <textarea id="area{{.TopicID}}" name="area{{.TopicID}}">{{.StatusText}}</textarea>
+                                <input type="submit" id="submit{{.TopicID}}" value="Submit">
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+                {{end}}
+            </table>
+        </div>
+        {{end}}
+
+
+        <div class="container">
+            <div>Changes on my topics after last login</div>
+            <table>
+                {{range .Updates}}
+                <tr class="topic-group">
+                    <td>
+                        <div>{{.Type}}: <a href="/topic?Id={{.TopicID}}">{{.TopicName}}</a></div>
+                    <td>
+                </tr>
+                {{end}}
+            </table>
+        </div>
+
+
+        <div class="container">
+            <div>My Topics</div>
+            <table>
+                {{range .MyTopics}}
+                <tr main="{{.TopicID}}" class="topic-group" title="Author: {{.UserName}}">
+                    <td>
+                        <div><a id="Topic{{.TopicID}}" href="/topic?Id={{.TopicID}}">{{.TopicName}}</a></div>
+                        <div class="topic-comment" id="TopicComment{{.TopicID}}">{{.TopicText}}</div>
+                        <div categories>{{.Categories}}</div>
+                    </td>
+                    <td class="left">
+                        <div>Created: {{.CreationDate}}</div>
+                        <div like="{{.MyLikes}}">&#128077; {{.Likes}}</div>
+                        <div dislike="{{.MyHates}}">&#128078; {{.Hates}}</div>
+                    </td>
+                    <td>
+                        <div class="update" title="Update" onclick="showform('{{.TopicID}}')">&#9998;</div>
+                        <div class="delete" title="Delete" onclick="deleterecord('Topic', '{{.TopicID}}')">&#x1F5D1;
+                        </div>
+                    </td>
+                </tr>
+                {{end}}
+            </table>
+        </div>
+        <div class="container">
+            <div>My commented Topics</div>
+            <table>
+                {{range .Comment}}
+                <tr sub="{{.ContentID}}" main="{{.TopicID}}" class="topic-group">
+                    <td>
+                        <div>Topic: <a href="/topic?Id={{.TopicID}}">{{.TopicName}}</a></div>
+                        <div id="Topic{{.ContentID}}">{{.ContentName}}</div>
+                        <div id="TopicComment{{.ContentID}}">{{.ContentText}}</div>
+                    </td>
+                    <td class="left">
+                        <div>Created: {{.CreationDate}}</div>
+                        <div>&#128077; {{.Likes}}</div>
+                        <div>&#128078; {{.Hates}}</div>
+                    </td>
+                    <td>
+                        <div class="update" title="Update" onclick="showSubForm('{{.ContentID}}')">&#9998;</div>
+                        <div class="delete" title="Delete"
+                            onclick="deleterecord('Topic', '{{.ContentID}}', '{{.TopicID}}')">&#x1F5D1;
+                        </div>
+                    </td>
+                </tr>
+                {{end}}
+            </table>
+        </div>
+        <div class="container">
+            <div>My liked and disliked Topics</div>
+            <table>
+                {{range .LikeDislike}}
+                <tr class="topic-group">
+                    <td>
+                        <div>Topic: <a href="/topic?Id={{.TopicID}}">{{.TopicName}}</a>
+                        </div>
+                    </td>
+                    <td class="left">
+                        {{if or (ne .TLike 0) (ne .THate 0)}}
+                        <div>
+                            <div>Main topic:</div>
+                            {{if ne .TLike 0}}
+                            <div>&#128077; {{.TLike}}</div>
+                            {{end}}
+                            {{if ne .THate 0}}
+                            <div>&#128078; {{.THate}}</div>
+                            {{end}}
+                        </div>
+                        {{end}}
+                    </td>
+                    <td class="left">
+                        {{if or (ne .CLike 0) (ne .CHate 0)}}
+                        <div>
+                            <div>Comments:</div>
+                            {{if ne .CLike 0}}
+                            <div>&#128077; {{.CLike}}</div>
+                            {{end}}
+                            {{if ne .CHate 0}}
+                            <div>&#128078; {{.CHate}}</div>
+                            {{end}}
+                        </div>
+                        {{end}}
+                    </td>
+                </tr>
+                {{end}}
+            </table>
+        </div>
+        <!-- <div class="container">
+            <div>TopicStatus</div>
+            {{range .TopicStatus}}
+            <div>{{.}} </div>
+            {{end}}
+        </div> -->
+
+        <!-- <div class="container">
+            <div>UserTypes</div>
+            {{range .UserTypes}}
+            <div>{{.}} </div>
+            {{end}}
+        </div> -->
+    </div>
+</body>
+
+</html>

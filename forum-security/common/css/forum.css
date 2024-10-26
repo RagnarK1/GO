@@ -1,0 +1,382 @@
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(120, 120, 120, 1);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+html {
+  background-color: rgb(41, 41, 41);
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  color: rgb(204, 204, 204);
+  font-size: 20px;
+  margin-right: 0px;
+  overflow-x: hidden;
+}
+
+table {
+  font-size: inherit;
+  width: 100%;
+  /* border-collapse: collapse; */
+  border-collapse: separate;
+  border-spacing: 0 1em;
+}
+
+img {
+  max-width: 150px;
+  height: auto;
+  width: auto\9;
+  text-align: center;
+}
+
+form {
+  margin-block-end: 0;
+}
+
+input {
+  border-radius: 4px;
+}
+
+.mainImg {
+  max-width: 100px;
+  height: auto;
+  width: auto\9;
+}
+
+.frameImg {
+  text-align: center;
+}
+
+.background {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  background: url(img/01-trame.svg) center center / cover;
+  opacity: 0.15;
+  z-index: -1;
+}
+
+a {
+  color: inherit;
+  font-size: inherit;
+}
+
+h1 {
+  text-align: center;
+}
+
+
+
+tr {
+  justify-content: space-evenly;
+  align-items: center;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.6) 100%);
+  /* box-shadow: 3px 0 10px rgba(255, 255, 255, .4), -3px 0 10px rgba(255, 255, 255, .3); */
+  box-shadow: rgba(255, 255, 255, .5) 0 0 10px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.frozenscreen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 2;
+}
+
+.frozenscreen form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid;
+  border-radius: 5px;
+  background: rgb(0, 0, 0);
+  padding: 10px;
+
+}
+
+.update,
+.delete,
+.likes,
+.dislikes {
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: 20px;
+  text-align: center;
+}
+
+/* .update, */
+/* .delete { */
+/* font-size: 2rem; */
+/* color: rgb(204, 204, 204); */
+/* } */
+
+.login-radio {
+  max-width: 250px;
+}
+
+.login-radio [type="radio"] {
+  display: none;
+}
+
+.login-radio label {
+  display: inline-block;
+  margin: 5px;
+  border: 2px solid;
+  border-radius: 6px;
+  width: 225px;
+  cursor: pointer;
+  text-align: center;
+  padding: 0px !important;
+}
+
+.login-radio [for="pw"] div {
+  font-size: 1rem;
+  padding: 10px;
+}
+
+/* .login-radio [for="googl"] div {
+  background-color: #dcedfc;
+  background-image: url("img/google.svg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  height: 100%;
+} */
+
+.login-radio [for="githb"] div {
+  background-image: url("img/github.svg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+[type="submit"],
+[type="button"],
+.login-radio label {
+  padding: 5px 20px;
+  font-size: 1rem;
+  border: 2px solid;
+  border-radius: 6px;
+  color: inherit;
+  cursor: pointer;
+  background: transparent;
+  background: rgba(0, 0, 0, 0.4);
+  margin: 10px 0;
+}
+
+.menu-bar {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 0 10px;
+  border-radius: 6px;
+  position: relative;
+  border: 2px solid;
+  overflow: auto;
+  display: table;
+  margin-right: 10px;
+}
+
+.menu-bar>div {
+  position: relative;
+  float: right;
+}
+
+.filter-group {
+  z-index: 1;
+  display: flex;
+  flex-direction: row-reverse;
+  padding-right: 10px;
+}
+
+.filter-group>div {
+  position: relative;
+}
+
+.filters {
+  font-size: 1rem;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid;
+  background: rgb(30, 30, 30);
+  border-radius: 6px;
+  right: 0px;
+  width: 150px;
+  padding: 0 10px 10px 10px;
+}
+
+.filters label {
+  padding: 10px 0;
+}
+
+.topic-group td {
+  border-top: 3px solid;
+  border-bottom: 3px solid;
+  padding: 10px;
+  font-size: 1rem;
+
+}
+
+.topic-group td:first-child {
+  border-left: 3px solid;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.topic-group td:last-child {
+  border-right: 3px solid;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.topic-header a {
+  font-size: 1.5rem;
+}
+
+.page-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.forum-content {
+  overflow: auto;
+  padding-right: 10px;
+}
+
+.container {
+  border: 2px solid;
+  border-radius: 6px;
+  padding: 10px;
+  margin: 5px 0;
+  width: calc(100% - 32px);
+}
+
+.center {
+  text-align: center;
+  /* margin: auto; */
+  /* max-width: 300px; */
+}
+
+.center form {
+  display: inline-block;
+}
+
+.radio textarea {
+  height: 50px;
+  vertical-align: top;
+}
+
+.error {
+  text-align: center;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.frozenscreen form {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  box-shadow: rgba(255, 255, 255, .5) 0 0 10px;
+}
+
+.frozenscreen form>textarea,
+.frozenscreen form>select {
+  margin-bottom: 20px;
+  min-height: 50px;
+}
+
+.frozenscreen form>input[type="submit"] {
+  margin-top: 30px;
+}
+
+.small {
+  font-size: 12px;
+}
+
+.close {
+  position: absolute;
+  right: 0px;
+  top: 7px;
+  width: 20px;
+  height: 20px;
+  opacity: 0.3;
+}
+
+.close:hover {
+  opacity: 1;
+}
+
+.close:before,
+.close:after {
+  position: absolute;
+  left: 0px;
+  content: ' ';
+  height: 20px;
+  width: 2px;
+  background-color: #f5f5f5;
+}
+
+.close:before {
+  transform: rotate(45deg);
+}
+
+.close:after {
+  transform: rotate(-45deg);
+}
+
+h2 {
+  text-align: center;
+  width: calc(100% - 12px);
+}
+
+h2:before,
+h2:after {
+  content: "";
+  display: inline-block;
+  height: 0px;
+  position: relative;
+  vertical-align: middle;
+  width: 50%;
+  border: 2px solid rgb(204, 204, 204);
+  border-radius: 6px;
+  box-shadow: rgba(255, 255, 255, 0.5) 0 0 10px;
+}
+
+h2:before {
+  right: 0.5em;
+  margin-left: -50%;
+}
+
+h2:after {
+  left: 0.5em;
+  margin-right: -50%;
+}
+
+.left>div {
+  display: flex;
+  place-items: center;
+  justify-content: right;
+}
+
+.noUnderline {
+  text-decoration: none !important;
+}

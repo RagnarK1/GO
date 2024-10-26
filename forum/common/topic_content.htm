@@ -1,0 +1,80 @@
+<html>
+
+<head>
+    <title>Forum: {{.Topic.TopicName}}</title>
+    <script src="/common/js/forum.js"></script>
+    <link rel="stylesheet" type="text/css" href="/common/css/forum.css">
+    <link rel="icon" type="image/x-icon" href="./common/css/img/icon.ico">
+</head>
+
+<body>
+    <div class="background"></div>
+    <div class="page-content">
+        <div class="menu-bar">
+            {{if eq .Session.Username ""}}
+            <div>You are not identified in forum!
+                Please <a href="signin"><input type="submit" value="log in"></a> or <a href="signup"><input
+                        type="submit" value="create account"></a>. <a href="/"><input type="button" value="Home"></a>
+            </div>
+            {{else}}
+            <div>Hello {{.Session.Username}}!
+                <input type="button" onclick="showform()" value="Add new comment">
+                <a href="/"><input type="button" value="Home"></a>
+                <a href="/signout"><input type="submit" value="Log out"></a>
+            </div>
+        </div>
+        <div class="frozenscreen hidden" id="NewTopic">
+            <form action="/uitopic" method="post">
+                <label for="TopicTitle">Title:</label>
+                <textarea id="TopicTitle" name="TopicTitle" required></textarea>
+                <label for="TopicText">Contents comment:</label>
+                <textarea id="TopicText" name="TopicText" required></textarea>
+                <input id="TopicId" name="TopicId" type="hidden">
+                <input id="MainId" name="MainId" type="hidden" value="{{ .Topic.TopicID }}">
+                <input id="TopicType" name="TopicType" type="hidden" value="Sub">
+                <input type="submit" value="Submit">
+            </form>
+            {{end}}
+        </div>
+        <h2>{{ .Topic.TopicName }}</h2>
+        {{ if ne .Topic.TopicImg "false"}}
+        <div class="frameImg">
+            <img class="mainImg" id="img" src="common/uploaded_images/{{.Topic.TopicImg}}" alt="img">
+        </div>
+        {{end}}
+
+        <div>{{ .Topic.TopicText }}</div>
+
+        <div class="forum-content">
+            <table>
+                {{range .Code}}
+                <tr sub="{{.ContentID}}" main="{{.TopicID}}" class="topic-group">
+                    <td>
+                        <div class="small">by {{.UserName}}</div>
+                        <div id="Topic{{.ContentID}}" title="Author: {{.UserName}}">{{.ContentName}}</div>
+                        <div id="TopicComment{{.ContentID}}">{{.ContentText}}</div>
+                    </td>
+                    <td>
+                        <div>Created: {{.CreationDate}}</div>
+                        <div class="likes">&#128077; {{.Likes}}</div>
+                        <div class="dislikes">&#128078; {{.Hates}}</div>
+                    </td>
+                    <td>
+                        {{if eq .Flag 1}}
+                        <div class="update" title="Update" onclick="showform('ContentID')">&#9998;</div>
+                        <div class="delete" title="Delete"
+                            onclick="deleterecord('Topic', '{{.ContentID}}', '{{.TopicID}}')">&#x1F5D1;
+                        </div>
+                        {{end}}
+                    </td>
+                </tr>
+                {{end}}
+            </table>
+            {{if ne .Session.Username ""}}
+            <input type="button" onclick="showform()" value="Add new comment">
+            {{end}}
+        </div>
+    </div>
+</body>
+
+</html>

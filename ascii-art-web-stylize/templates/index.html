@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="static/style.css">
+</head>
+
+<body id="all" style="background-color: #FDD017 !important">
+  <h1 id="title">Convert text to ASCII Art</h1>
+  <div id="form-div">
+    <form id="the-form" action="/ascii-art" method="POST">
+      <div id="buttons-div">
+        <div id="banner-div">
+          <select name="banner" id="banner">
+            <option value="standard" selected>Standard</option>
+            <option value="shadow">Shadow</option>
+            <option value="thinkertoy">Thinkertoy</option>
+          </select>
+        </div>
+        <div id="submit-div">
+          <button id="submitter" type="submit">
+            Submit
+          </button>
+        </div>
+      </div>
+      <div id="input-div">
+        <textarea name="user-input" id="user-input" required
+          placeholder="Enter text here">'\!"#$%&'"'"'()*+,-./'</textarea>
+      </div>
+    </form>
+  </div>
+  <div id="output-div">
+    <div id="output-div-2">
+      {{if .AsciiArt}}
+      <div id="ascii-art">
+        <br>
+        <pre>{{.AsciiArt}}</pre>
+      </div>
+      {{end}}
+      <div id="error">
+        {{.Error}}
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Groupie-Tracker</title>
+        <link rel="stylesheet" href="views/assets/about.css">
+        <script>      
+            function openTab(evt, tabName){
+                var i, tabContent, infoButton;
+                tabContent = document.getElementsByClassName("tabContent");
+                for (i = 0; i < tabContent.length; i++) {
+                    tabContent[i].style.display = "none";
+                }
+                infoButton = document.getElementsByClassName("infoButton");
+                for (i = 0; i < infoButton.length; i++) {
+                    infoButton[i].className = infoButton[i].className.replace(" active", "");
+                }
+                document.getElementById(tabName).style.display = "flex";
+                evt.currentTarget.className += " active";
+            }
+        </script>
+    </head>
+    <body class="body">       
+        <div class="Header">
+            <h1 id="HeaderText"> <a href="/">Groupie-Tracker</a></h1>
+        </div>
+        <div class="maincontent">
+            <div class="bandbox">
+                <div class="tabContent" id="about">
+                    <div>
+                        <img class="bandimg" src="{{.Image}}">
+                        <h2 id="bandName">{{.Name}}</h2>
+                    </div>
+                    <div class="members">
+                        <p class="membersText"><strong>Members:</strong>{{range $value := .Members}}<br> {{$value}},{{end}}</p>
+                    </div>
+                    <div class="aboutText">     
+                              
+                        <p class="createText"><b>Creation date:</b> {{.CreationDate}}</p>
+                        <p class="createText" id="album"><b>First Album:</b> {{.FirstAlbum}}</p>
+                    </div>
+                </div>
+                <div class="tabContent concertDisplay" id="concert">
+                    {{range $ticker, $date := .Relations}}
+                    <div class="slideShowContainer">
+                        <div class="caption"><b>{{$ticker}}:</b>{{range $eachdate := $date}}{{$eachdate}}, {{end}}</div>                     
+                    </div>
+                    {{end}}
+                </div>
+                <div class="infoButtonsBar">
+                    <button class="infoButton" onclick="openTab(event, 'about')" id="defaultOpen">About</button>
+                    <button class="infoButton" onclick="openTab(event, 'concert')" id="concert">Concerts</button>
+                    <script>
+                        document.getElementById("defaultOpen").click()
+                    </script>
+                </div>
+            </div>            
+        </div>
+        <div class="buttondiv">
+            <a class="button" href="/">
+                <div class="homebutton">
+                    <p class="buttontext"><b>&#60 Back to main page</b></p>
+                </div>
+            </a>
+        </div>    
+    </body>
+</html>

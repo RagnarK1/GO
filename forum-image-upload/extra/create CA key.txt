@@ -1,0 +1,35 @@
+Create key
+$mkdir cert
+$ openssl genrsa -out cert/forumCA.key -des3 2048
+
+Create root CA for 10 around years
+$ openssl req -x509 -sha256 -new -nodes -days 3650 -key cert/forumCA.key -out cert/forumCA.pem
+
+Generating a certificate
+$ mkdir localhost
+$ cd localhost
+$ touch localhost.ext
+
+Insert into localhost.ext
+
+authorityKeyIdentifier = keyid,issuer
+basicConstraints = CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1 = localhost
+IP.1 = 127.0.0.1
+
+
+generate localhost key
+$ openssl genrsa -out localhost.key -des3 2048
+
+generate CSR
+$ openssl req -new -key localhost.key -out localhost.csr
+
+
+sign a certificate
+$ openssl x509 -req -in localhost.csr -CA ../forumCA.pem -CAkey ../forumCA.key -CAcreateserial -days 3650 -sha256 -extfile localhost.ext -out localhost.crt
+
+decrypt the localhost.key and store that file

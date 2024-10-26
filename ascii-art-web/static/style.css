@@ -1,0 +1,25 @@
+body {
+    background-color: aqua;
+    text-align: center;
+    font-family: sans-serif;
+}
+
+hl {
+    font-family: sans-serif;
+    font-size: 3rem;
+    color: black;
+}
+
+button {
+    position: relative;
+    top: -2px;
+    left: -2px;
+}
+
+textarea {
+    width: 500x;
+    height: 100x;
+    border: 2px solid black;
+    border-radius: 4px;
+}
+ 

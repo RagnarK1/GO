@@ -1,0 +1,133 @@
+<html>
+
+<head>
+    <title>Forum: Homepage</title>
+    <script src="/common/js/forum.js"></script>
+    <link rel="stylesheet" type="text/css" href="/common/css/forum.css">
+    <link rel="icon" type="image/x-icon" href="./common/css/img/icon.ico">
+</head>
+
+<body>
+    <div class="background"></div>
+    <div class="page-content">
+        <div class="menu-bar">
+            <p username hidden>{{.Session.Username}}</p>
+            {{if eq .Session.Username ""}}
+            <div>You are not identified in forum!
+                Please <a href="signin"><input type="submit" value="log in"></a> or <a href="signup"><input
+                        type="submit" value="create account"></a>.</div>
+            {{else}}
+            <div>Hello {{.Session.Username}}!
+                <input type="button" onclick="showform()" value="Create new topic">
+                <a href="/myHome"><input type="button" value="My page"></a>
+                <a href="/signout"><input type="submit" value="Log out"></a>
+            </div>
+        </div>
+        <div class="frozenscreen hidden" id="NewTopic">
+            <form action="/uitopic" method="post" enctype="multipart/form-data">
+                <div class='close' onclick="document.getElementById('NewTopic').classList.add('hidden')"></div>
+                <label for="TopicTitle">Title:</label>
+                <textarea id="TopicTitle" name="TopicTitle" required></textarea>
+                <label for="TopicText">Description:</label>
+                <textarea id="TopicText" name="TopicText" required></textarea>
+                <label for="TopicCategory">Topic categories (multiselect "ctrl"):</label>
+                <select id="TopicCategory" name="TopicCategory" multiple>
+                    {{range .Categories}}
+                    <option value="{{.}}">{{.}}</option>
+                    {{end}}
+                </select>
+                <input id="TopicId" name="TopicId" type="hidden">
+                <input id="TopicType" name="TopicType" type="hidden" value="Topic">
+                <label for="uploadImg" id="imgLabel">Upload image (png, jpeg, gif)</label>
+                <input type="file" name="uploadImg" id="uploadImg" onchange="validateFile()" class="hidden">
+                <input type="button" value="Select image" onclick="document.getElementById('uploadImg').click()">
+                <div id="uploadImgName" class="small">No image selected</div>
+                <div id="currentImg" class="small">
+                    <label for="imgCheckbox" id="imgCheckboxLabel">Remove current image</label>
+                    <input type="checkbox" id="imgCheckbox" name="removeImg">
+                </div>
+                <div id="fileErrorMsg" class="small"></div>
+                <input type="submit" value="Submit">
+                <div class="small">NB! Moderator needs to confirm the topic before others can see it!</div>
+                <div class="small">Press ESC to close this form!</div>
+            </form>
+            {{end}}
+        </div>
+        <div id="filter_group" class="filter-group">
+            <div>
+                <input type="button" id="filters_button" value="Open filters" onclick="openFilters()">
+                <div id="filters" class="filters hidden">
+                    <label for="FilterCategory">Filter categories</label>
+                    <select id="FilterCategory" name="FilterCategory" multiple>
+                        <option value="All categories">All categories</option>
+                        {{range .Categories}}
+                        <option value="{{.}}">{{.}}</option>
+                        {{end}}
+                    </select>
+                    {{if eq .Session.Username ""}}
+                    {{else}}
+                    <label for="FilterUserTopics">Filter user topics</label>
+                    <select id="FilterUserTopics" name="FilterCategory" multiple>
+                        <option value="All users">All users</option>
+                        {{range .Users}}
+                        <option value="{{.}}">{{.}}</option>
+                        {{end}}
+                    </select>
+                    <label for="FilterMyLikes">Filter My likes/dislikes</label>
+                    <select id="FilterMyLikes" name="FilterMyLikes">
+                        <option value="All">No filter</option>
+                        <option value="likes">Likes</option>
+                        <option value="dislikes">DisLikes</option>
+                    </select>
+                    {{end}}
+                </div>
+            </div>
+        </div>
+        <h2>Welcome to Forum project</h2>
+        <div class="forum-content">
+            <table>
+                {{range .Code}}
+                <tr main="{{.TopicID}}" class="topic-group">
+                    <td>
+                        {{if eq .TopicImg "false"}}
+                        {{else}}
+                        <img id="TopicImg{{.TopicID}}" src="common/uploaded_images/{{.TopicImg}}" alt="{{.TopicImg}}">
+                        {{end}}
+                    </td>
+                    <td>
+                        <div class="topic-header"><a id="Topic{{.TopicID}}" title="Author: {{.UserName}}"
+                                author="{{.UserName}}" href="/topic?Id={{.TopicID}}">{{.TopicName}}</a> by {{.UserName}}
+                        </div>
+                        <div class="topic-comment" id="TopicComment{{.TopicID}}">{{.TopicText}}</div>
+                        {{if eq .Status "ACTIVE"}}
+                        {{else}}
+                        <div>Status: {{.Status}}</div>
+                        {{end}}
+                    </td>
+                    <td>
+                        <div categories>{{.Categories}}</div>
+                        <div>Created: {{.CreationDate}}</div>
+                        <div>No of comments: {{.ContentCnt}}</div>
+                        {{if gt .ContentCnt 0}}
+                        <div>Latest post : {{.LastContentEditorDate}}</div>
+                        {{end}}
+                    </td>
+                    <td class="left">
+                        <div like="{{.MyLikes}}" class="likes">&#128077; {{.Likes}}</div>
+                        <div dislike="{{.MyHates}}" class="dislikes">&#128078; {{.Hates}}</div>
+                    </td>
+                    <td>
+                        {{if eq .Flag 1}}
+                        <div class="update" title="Update" onclick="showform('{{.TopicID}}')">&#9998;</div>
+                        <div class="delete" title="Delete" onclick="deleterecord('Topic', '{{.TopicID}}')">&#x1F5D1;
+                        </div>
+                        {{end}}
+                    </td>
+                </tr>
+                {{end}}
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

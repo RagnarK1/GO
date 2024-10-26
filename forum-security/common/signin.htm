@@ -1,0 +1,54 @@
+<html>
+
+<head>
+    <title>Forum: Sign in</title>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="/common/js/forum.js"></script>
+    <link rel="stylesheet" type="text/css" href="/common/css/forum.css">
+    <link rel="icon" type="image/x-icon" href="./common/css/img/icon.ico">
+</head>
+
+<body>
+    <div class="background"></div>
+    <div class="page-content">
+        <div class="menu-bar">
+            <div><a href="/"><input type="button" value="Home"></a></div>
+        </div>
+        <h2>You are not authenticated! Please log in!</h2>
+        <div class="center">
+            <div>{{.}}</div>
+            <form method="post" action="/signin">
+                <div class="login-radio">
+                    <input type="radio" id="pw" name="logintype" value="Password" onclick="loginType(this)" checked>
+                    <label for="pw" title="Password">
+                        <div>Username & Password</div>
+                        <div id="password_input" class="password-input hidden">
+                            <div>
+                                <div>Email:</div>
+                                <input type="email" id="email_signin" name="email" required>
+                                <div>Password:</div>
+                                <input type="password" id="pass_signin" name="password" minlength="8" required
+                                    autocomplete="current-password">
+                                <div colspan="2"><input id="signin" type="submit" method="post" value="Sign in"></div>
+                            </div>
+                        </div>
+                    </label>
+                    <input type="radio" id="googl" name="logintype" value="Google">
+                    <label for="googl" title="Google" class="hidden">
+                        <div id="g_id_onload"
+                            data-client_id="935891812277-qbifem2agr4mkq57al4tetkpfn3e8na8.apps.googleusercontent.com"
+                            data-callback="handleCredentialResponse">
+                        </div>
+                        <div class="g_id_signin" data-type="standard"></div>
+                    </label>
+                    <input type="radio" id="githb" name="logintype" value="GitHub" onclick="loginType(this)">
+                    <label for="githb" title="GitHub" class="hidden">
+                        <div>GitHub</div>
+                    </label>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

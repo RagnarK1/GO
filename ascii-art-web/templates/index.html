@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="static/style.css">
+    <title>Convert text to ASCII Art</title>
+    
+</head>
+<body>
+    <div class="container text-center">
+        <h1>Convert text to ASCII Art</h1>
+        <form action="/ascii-art" method="POST">
+            <textarea name="user-input" id="user-input" required rows="10" cols="100" placeholder="Enter text here"></textarea>
+            <br>
+            <div id="flexContent">
+                <select class="form-select" name="banner" id="banner">
+                    <option value="standard">Standard</option>
+                    <option value="shadow">Shadow</option>
+                    <option value="thinkertoy">Thinkertoy</option>
+                </select>
+                <button class="btn btn-warning" type="submit">Submit</button>
+            </div>
+        </form>
+        {{if .AsciiArt}}
+        <div id="ascii-art" >
+            <pre>{{.AsciiArt}}</pre>
+        </div>
+        {{end}}
+        <div id="error">{{.Error}}</div>
+    </div>
+</body>
+</html>

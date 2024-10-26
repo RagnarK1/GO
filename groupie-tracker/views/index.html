@@ -1,0 +1,32 @@
+<!-- Handle the front views -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Groupie-Tracker</title>
+        <link rel="stylesheet" href="views/assets/index.css">
+    </head>
+    <body style="background-color: rgb(27,27,27)">
+        <div class="Header">
+            <h1 id="HeaderText">Groupie-Tracker</h1>
+        </div>
+        <div class="body">
+        {{range .}}
+        <form class="formstyle" action="/about" method="POST">
+            <label class="label" type="switch" for="{{.ID}}">
+                <input type="submit" id="{{.ID}}" class="check" name="band-ID" value="{{.ID}}">
+                <div class="bandbox">            
+                    <div class="image">
+                        <img src={{.Image}} >
+                    </div>
+                    <div class="nameDiv">
+                        <h2 class="bandName">{{.Name}}</h2>
+                    </div>
+                </div>           
+            </label>
+        </form>
+        {{end}}
+        </div>
+        <div class="footer">
+        </div>
+    </body>
+</html>

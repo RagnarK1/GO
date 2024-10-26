@@ -1,0 +1,112 @@
+
+@define-color brownish #462425 ;
+@define-color yellowish #FDD017 ;
+@define-color reddish #FF0000 ;
+
+body{
+    background-color: #FDD017 !important;
+    overflow:auto;
+    position:relative;
+    width:100%;
+    height:100%;
+    margin:0%;
+    padding:0%;
+    border:1px solid black;
+}
+#title{
+color:#462425;
+text-align: center;
+}
+#the-form{
+ display:flex;
+  width: 100%;
+  height: 100%;
+}
+#buttons-div{
+    float:left;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    box-sizing: border-box;
+    height:100%;
+    width:20%;
+}
+
+#banner{
+    background-color: #ff0000 ;
+    color: #FDD017 ;  
+    radius: 25px;
+    border: 40px #462425k;
+    border-radius:10px;
+    font-weight: bold;
+    font-size: 20px;
+    text-align:center;
+    box-sizing: border-box;
+    vertical-align:middle;
+}
+#submitter{
+    background-color: #ff0000 ;
+    color: #FDD017 ;  
+    radius: 25px;
+    border: 40px #462425k;
+    border-radius:10px;
+    font-weight: bold;
+    font-size: 20px;
+    text-align:center;
+    vertical-align:middle;
+} 
+#input-div{
+    vertical-align:middle;
+    float:right;
+    height:100%;
+    width:80%;
+    box-sizing: border-box;
+}
+#user-input{
+    display:block;
+    background: #FDD017 ;
+    color:#000000;   
+    border: double 10px #462425 ;
+    radius: 25px;
+    width:100%;
+    height:100%;
+    box-sizing: border-box;
+    font-weight: bold;
+    font-size: 20px;
+} 
+
+#output-div-2{
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    background-color: #FF0000 ;   
+    color:#FDD017 ;   
+    border: dotted 30px #FDD017 ;
+    radius: 25px;
+    font-weight: bold;
+    font-size: 10px;
+    box-sizing: border-box;
+    overlow:auto;
+    height:100%;
+}
+#output-div{
+    text-align: center;
+    width: 100%;
+    height:100%;
+    background-color: #FF0000 ;   
+    color:#FDD017 ;   
+    border: dotted 30px #FDD017 ;
+    radius: 25px;
+    font-weight: bold;
+    font-size: 10px;
+    box-sizing: border-box;
+    overlow-x:auto;
+}
+#ascii-art{
+    width: 100%;
+    height:100%;
+    font-weight: 1000;
+    font-size: 10px;
+    overlow-x:auto;
+}
+

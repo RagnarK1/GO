@@ -1,0 +1,54 @@
+.errortext{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(167, 43, 43);
+    border-radius: 10px;
+    border-width: 5px;
+    border-color: rgb(203, 55, 1);
+    border-style: double;
+}
+.oops{
+    font-size: 30px;
+}
+.button{
+    display: block;
+    width: 180px;
+}
+.buttondiv{
+    display: flex;
+    justify-content: center;
+}
+.homebutton{
+    background-color: rgb(167, 43, 43);
+    border-radius: 10px;
+    border-width: 5px;
+    border-color: rgb(203, 55, 1);
+    border-style: double;
+    width: fit-content;
+    padding-inline: 10px;
+    margin-top: 40px;  
+}
+.buttontext{
+    color: black;
+}
+.homebutton:hover {
+    transition-duration: 250ms;
+    background-color: rgb(204, 52, 52);
+}
+a:link {
+    text-decoration: none;
+}
+a:visited {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: none;
+}
+a:active {
+    text-decoration: none;
+}
+.body{
+    background-image: url(poly.svg);
+}

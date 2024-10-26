@@ -1,0 +1,66 @@
+<html>
+
+<head>
+    <title>Forum: Sign up</title>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="/common/js/forum.js"></script>
+    <link rel="stylesheet" type="text/css" href="/common/css/forum.css">
+    <link rel="icon" type="image/x-icon" href="./common/css/img/icon.ico">
+</head>
+
+<body>
+    <div class="background"></div>
+    <div class="page-content">
+        <div class="menu-bar">
+            <div><a href="/"><input type="button" value="Home"></a></div>
+        </div>
+        <h2>Please select method to create user</h2>
+        <div class="center">
+            <form id="form" method="post" style="text-align: -webkit-center;" action="/signup">
+                <div id="login_radio" class="login-radio">
+                    <!-- <div style="margin-top: 20px;">Please select method to create user:</div> -->
+                    <input type="radio" id="pw" name="logintype" value="Password" onclick="loginType(this)" checked>
+                    <label for="pw" title="Password">
+                        <div>Username & Password</div>
+                        <div id="password_input" class="password-input hidden">
+                            <div>
+                                <div>Username</div>
+                                <input type="text" id="user" name="user" onfocusout="checkName(this)" required>
+                                <!-- onfocusout="checkName(this)" -->
+                                <div>Email:</div>
+                                <input type="email" id="email_signin" name="email" onfocusout="checkEmail(this)"
+                                    required>
+                                <!-- onfocusout="checkEmail(this)" -->
+                                <div>Password:</div>
+                                <input type="password" id="pass_signin" name="password" minlength="8" required
+                                    autocomplete="current-password">
+                                <div colspan="2"><input id="signin" type="submit" method="post" value="Create account">
+                                </div>
+                            </div>
+                        </div>
+                    </label>
+                    <!-- <input type="radio" id="googl" name="logintype" value="Google">
+                    <label for="googl" title="Google"> -->
+                    <div id="g_id_onload"
+                        data-client_id="868195403086-emj6ao31669qfa9jdeva7l30j0am5p4u.apps.googleusercontent.com"
+                        data-callback="handleCredentialResponse">
+                    </div>
+                    <div class="g_id_signin" data-type="standard"></div>
+                    <!-- </label> -->
+                    <!-- <input type="radio" id="githb" name="logintype" value="GitHub" onclick="loginType(this)"> -->
+                    <label for="githb" title="GitHub">
+                        <div>GitHub</div>
+                        <a href="/github/login">Create with GitHub</a>
+                    </label>
+                </div>
+
+                <input type="text" name="hidden_email" id="hidden_email" style="display:none;">
+                <input type="text" name="hidden_loginType" id="hidden_loginType" style="display:none;">
+                <input type="text" name="hidden_user" id="hidden_user" style="display:none;">
+            </form>
+            <div>{{.}}</div>
+        </div>
+    </div>
+</body>
+
+</html>
